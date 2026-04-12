@@ -23,7 +23,6 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
-            /* CRT Scanline effect for background */
             background-image: repeating-linear-gradient(
                 0deg,
                 rgba(0, 221, 255, 0.03),
@@ -33,15 +32,12 @@
             );
         }
 
-        /* High-Tech Glassmorphism Vault Container */
         .vault-container {
             border: 1px solid rgba(0, 221, 255, 0.3);
             padding: 40px;
-            /* Frosted glass effect */
             background: rgba(5, 10, 15, 0.4);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            /* Soft neon glow */
             box-shadow: 0 8px 32px 0 rgba(0, 221, 255, 0.2), inset 0 0 20px rgba(0, 221, 255, 0.1);
             text-align: center;
             width: 400px;
@@ -51,7 +47,6 @@
             z-index: 10;
         }
 
-        /* Corner accents for the high-tech look */
         .vault-container::before, .vault-container::after {
             content: '';
             position: absolute;
@@ -78,7 +73,6 @@
             letter-spacing: 1px;
         }
 
-        /* Input Field */
         input {
             background: rgba(0, 221, 255, 0.05);
             border: 1px solid rgba(0, 221, 255, 0.5);
@@ -101,7 +95,6 @@
             border-color: var(--primary-color);
         }
 
-        /* Submit Button */
         button {
             background: rgba(0, 221, 255, 0.1);
             color: var(--primary-color);
@@ -125,9 +118,6 @@
             box-shadow: 0 0 20px var(--primary-color);
         }
 
-        /* =========================================
-           ERROR STATE (Wrong Password) 
-           ========================================= */
         .vault-container.error {
             border-color: rgba(255, 0, 60, 0.5);
             box-shadow: 0 8px 32px 0 rgba(255, 0, 60, 0.2), inset 0 0 20px rgba(255, 0, 60, 0.2);
@@ -167,9 +157,6 @@
             100% { transform: translate(0) }
         }
 
-        /* =========================================
-           SUCCESS STATE (Right Password) 
-           ========================================= */
         .vault-container.success {
             border-color: rgba(0, 255, 0, 0.5);
             box-shadow: 0 8px 32px 0 rgba(0, 255, 0, 0.2), inset 0 0 20px rgba(0, 255, 0, 0.2);
@@ -206,7 +193,6 @@
     </div>
 
     <script>
-        // Listen for "Enter" key press inside the input field
         document.getElementById("passcode").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
@@ -220,42 +206,12 @@
             const container = document.getElementById("vault");
             const statusMsg = document.getElementById("status-msg");
 
-            /* =========================================
-               CONFIGURATION: Set your password and link 
-               ========================================= */
-            const correctPassword = "CYBER2077"; // <--- CHANGE PASSWORD HERE
-            const redirectURL = "https://github.com"; // <--- CHANGE REDIRECT LINK HERE
+            // Base64-obfuscated password
+            const encodedPassword = "a2F0dWFjaG9kaXByYWhkYW4=";
+            const correctPassword = atob(encodedPassword);
 
-            // Checking the password
+            const redirectURL = "https://github.com"; // Change this to your redirect
+
             if (passValue === correctPassword) {
-                // SUCCESS
                 container.classList.remove("error");
                 container.classList.add("success");
-                statusMsg.innerText = "ACCESS GRANTED. DECRYPTING...";
-                
-                // Disable input and button to prevent spamming
-                passInput.disabled = true;
-                document.querySelector("button").disabled = true;
-
-                // Wait 1.5 seconds for dramatic effect, then redirect
-                setTimeout(() => {
-                    window.location.href = redirectURL;
-                }, 1500);
-
-            } else {
-                // FAILURE
-                container.classList.add("error");
-                statusMsg.innerText = "ERR: UNAUTHORIZED ACCESS ATTEMPT";
-                
-                // Remove the red error state after 1.5 seconds so they can try again
-                setTimeout(() => {
-                    container.classList.remove("error");
-                    statusMsg.innerText = "AWAITING DECRYPTION KEY";
-                    passInput.value = ""; // Clear the wrong password
-                    passInput.focus();
-                }, 1500);
-            }
-        }
-    </script>
-</body>
-  </html>
