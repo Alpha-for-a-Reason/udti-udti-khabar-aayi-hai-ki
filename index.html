@@ -93,20 +93,20 @@ button:hover { background: var(--primary-color); color: #000; }
 </div>
 
 <script>
-document.getElementById("passcode").addEventListener("keypress", function(event){
-    if(event.key === "Enter") { event.preventDefault(); checkPassword(); }
+document.getElementById("passcode").addEventListener("keypress", function(e){
+    if(e.key === "Enter"){ e.preventDefault(); checkPassword(); }
 });
 
 async function checkPassword() {
     const input = document.getElementById("passcode");
-    const value = input.value.trim(); // <-- trim spaces
+    const value = input.value.trim(); // remove spaces
     const container = document.getElementById("vault");
     const statusMsg = document.getElementById("status-msg");
     const redirectURL = "https://github.com";
 
-    // SHA-256 of "katuachodipradhan" (no spaces, lowercase exact)
-    const correctHash = "1188de4fa8d810f60b4de3c863d92de8f3c9832f3b8cf123db95d894452312e7";
+    const correctHash = "1188de4fa8d810f60b4de3c863d92de8f3c9832f3b8cf123db95d894452312e7"; // SHA-256 of katuachodipradhan
 
+    // SHA-256 hashing
     const encoder = new TextEncoder();
     const data = encoder.encode(value);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -119,16 +119,11 @@ async function checkPassword() {
         statusMsg.innerText = "ACCESS GRANTED. DECRYPTING...";
         input.disabled = true;
         document.querySelector("button").disabled = true;
-        setTimeout(() => { window.location.href = redirectURL; }, 1500);
+        setTimeout(()=>{ window.location.href=redirectURL; },1500);
     } else {
         container.classList.add("error");
         statusMsg.innerText = "ERR: UNAUTHORIZED ACCESS ATTEMPT";
-        setTimeout(() => {
-            container.classList.remove("error");
-            statusMsg.innerText = "AWAITING DECRYPTION KEY";
-            input.value = "";
-            input.focus();
-        }, 1500);
+        setTimeout(()=>{ container.classList.remove("error"); statusMsg.innerText="AWAITING DECRYPTION KEY"; input.value=""; input.focus(); },1500);
     }
 }
 </script>
