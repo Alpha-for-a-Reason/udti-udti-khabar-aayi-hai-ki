@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SECURE VAULT // TERMINAL</title>
     <style>
-        /* Base Cyberpunk Theme Settings */
         :root {
             --primary-color: #0df; /* Neon Cyan */
             --bg-color: #050505;
@@ -123,24 +122,20 @@
             box-shadow: 0 8px 32px 0 rgba(255, 0, 60, 0.2), inset 0 0 20px rgba(255, 0, 60, 0.2);
             animation: glitch-shake 0.4s infinite;
         }
-        
         .vault-container.error::before, .vault-container.error::after {
             border-color: var(--error-color);
         }
-
         .vault-container.error h1,
         .vault-container.error p {
             color: var(--error-color);
             text-shadow: 0 0 8px var(--error-color);
         }
-
         .vault-container.error input {
             border-color: var(--error-color);
             color: var(--error-color);
             box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.2);
             background: rgba(255, 0, 60, 0.05);
         }
-
         .vault-container.error button {
             border-color: var(--error-color);
             color: var(--error-color);
@@ -161,57 +156,60 @@
             border-color: rgba(0, 255, 0, 0.5);
             box-shadow: 0 8px 32px 0 rgba(0, 255, 0, 0.2), inset 0 0 20px rgba(0, 255, 0, 0.2);
         }
-
         .vault-container.success::before, .vault-container.success::after {
             border-color: var(--success-color);
         }
-
         .vault-container.success h1, .vault-container.success p {
             color: var(--success-color);
             text-shadow: 0 0 8px var(--success-color);
         }
-        
         .vault-container.success input {
             border-color: var(--success-color);
             color: var(--success-color);
             background: rgba(0, 255, 0, 0.05);
             box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.2);
         }
+
+        /* Footer & Instagram */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+            color: var(--primary-color);
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+        .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 5px;
+            gap: 8px;
+        }
+        .instagram-link img {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            filter: invert(70%) sepia(100%) saturate(500%) hue-rotate(170deg);
+        }
+        .instagram-link img:hover {
+            transform: scale(1.2);
+            filter: invert(0%) sepia(100%) saturate(500%) hue-rotate(330deg);
+        }
+        .instagram-link span {
+            cursor: pointer;
+            font-weight: bold;
+            text-shadow: 0 0 6px var(--primary-color);
+        }
     </style>
 </head>
 <body>
 
-    <div class="vault-container" id="vault">
-        <h1>// SYS_VAULT</h1>
-        <p id="status-msg">AWAITING DECRYPTION KEY</p>
-        
-        <div class="input-group">
-            <input type="password" id="passcode" placeholder="••••••••" autocomplete="off" />
-            <br>
-            <button onclick="checkPassword()">DECRYPT</button>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById("passcode").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                checkPassword();
-            }
-        });
-
-        function checkPassword() {
-            const passInput = document.getElementById("passcode");
-            const passValue = passInput.value;
-            const container = document.getElementById("vault");
-            const statusMsg = document.getElementById("status-msg");
-
-            // Base64-obfuscated password
-            const encodedPassword = "a2F0dWFjaG9kaXByYWhkYW4=";
-            const correctPassword = atob(encodedPassword);
-
-            const redirectURL = "https://github.com"; // Change this to your redirect
-
-            if (passValue === correctPassword) {
-                container.classList.remove("error");
-                container.classList.add("success");
+<div class="vault-container" id="vault">
+    <h1>// SYS_VAULT</h1>
+    <p id="status-msg">AWAITING DECRYPTION KEY</p>
+    
+    <div class="input-group">
+        <input type="password" id
