@@ -1,122 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SECURE VAULT // TERMINAL</title>
-    <style>
-        :root {
-            --primary-color: #0df;
-            --bg-color: #050505;
-            --error-color: #ff003c;
-            --success-color: #0f0;
-        }
-        body {
-            background-color: var(--bg-color);
-            color: var(--primary-color);
-            font-family: 'Courier New', monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            background-image: repeating-linear-gradient(
-                0deg,
-                rgba(0, 221, 255, 0.03),
-                rgba(0, 221, 255, 0.03) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-        }
-        .vault-container {
-            border: 1px solid rgba(0, 221, 255, 0.3);
-            padding: 40px;
-            background: rgba(5, 10, 15, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 8px 32px 0 rgba(0, 221, 255, 0.2), inset 0 0 20px rgba(0, 221, 255, 0.1);
-            text-align: center;
-            width: 400px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 10;
-        }
-        .vault-container::before, .vault-container::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary-color);
-            transition: all 0.3s ease;
-            opacity: 0.7;
-        }
-        .vault-container::before { top: -1px; left: -1px; border-right: none; border-bottom: none; border-top-left-radius: 8px; }
-        .vault-container::after { bottom: -1px; right: -1px; border-left: none; border-top: none; border-bottom-right-radius: 8px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SECURE VAULT // TERMINAL</title>
+<style>
+:root {
+    --primary-color: #0df;
+    --bg-color: #050505;
+    --error-color: #ff003c;
+    --success-color: #0f0;
+}
+body {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    font-family: 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(0, 221, 255, 0.03),
+        rgba(0, 221, 255, 0.03) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+}
+.vault-container {
+    border: 1px solid rgba(0, 221, 255, 0.3);
+    padding: 40px;
+    background: rgba(5, 10, 15, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px 0 rgba(0, 221, 255, 0.2), inset 0 0 20px rgba(0, 221, 255, 0.1);
+    text-align: center;
+    width: 400px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 10;
+}
+.vault-container::before, .vault-container::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+.vault-container::before { top: -1px; left: -1px; border-right: none; border-bottom: none; border-top-left-radius: 8px; }
+.vault-container::after { bottom: -1px; right: -1px; border-left: none; border-top: none; border-bottom-right-radius: 8px; }
 
-        h1 { font-size: 1.6em; letter-spacing: 3px; text-shadow: 0 0 8px var(--primary-color); margin-bottom: 5px; }
-        p { font-size: 0.9em; opacity: 0.8; margin-bottom: 25px; letter-spacing: 1px; }
+h1 { font-size: 1.6em; letter-spacing: 3px; text-shadow: 0 0 8px var(--primary-color); margin-bottom: 5px; }
+p { font-size: 0.9em; opacity: 0.8; margin-bottom: 25px; letter-spacing: 1px; }
+input {
+    background: rgba(0, 221, 255, 0.05);
+    border: 1px solid rgba(0, 221, 255, 0.5);
+    color: var(--primary-color);
+    padding: 12px;
+    width: 80%;
+    font-family: inherit;
+    font-size: 1.2em;
+    outline: none;
+    text-align: center;
+    letter-spacing: 5px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(0, 221, 255, 0.1);
+    transition: all 0.3s ease;
+}
+input:focus { background: rgba(0, 221, 255, 0.15); box-shadow: 0 0 15px rgba(0, 221, 255, 0.4), inset 0 0 10px rgba(0, 221, 255, 0.3); border-color: var(--primary-color); }
 
-        input {
-            background: rgba(0, 221, 255, 0.05);
-            border: 1px solid rgba(0, 221, 255, 0.5);
-            color: var(--primary-color);
-            padding: 12px;
-            width: 80%;
-            font-family: inherit;
-            font-size: 1.2em;
-            outline: none;
-            text-align: center;
-            letter-spacing: 5px;
-            border-radius: 4px;
-            box-shadow: inset 0 0 10px rgba(0, 221, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        input:focus { background: rgba(0, 221, 255, 0.15); box-shadow: 0 0 15px rgba(0, 221, 255, 0.4), inset 0 0 10px rgba(0, 221, 255, 0.3); border-color: var(--primary-color); }
+button {
+    background: rgba(0, 221, 255, 0.1);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 10px 30px;
+    font-family: inherit;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 221, 255, 0.2);
+    backdrop-filter: blur(4px);
+    transition: all 0.2s;
+}
+button:hover { background: var(--primary-color); color: #000; box-shadow: 0 0 20px var(--primary-color); }
 
-        button {
-            background: rgba(0, 221, 255, 0.1);
-            color: var(--primary-color);
-            border: 1px solid var(--primary-color);
-            padding: 10px 30px;
-            font-family: inherit;
-            font-weight: bold;
-            letter-spacing: 2px;
-            cursor: pointer;
-            margin-top: 20px;
-            text-transform: uppercase;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0, 221, 255, 0.2);
-            backdrop-filter: blur(4px);
-            transition: all 0.2s;
-        }
-        button:hover { background: var(--primary-color); color: #000; box-shadow: 0 0 20px var(--primary-color); }
+.vault-container.error {
+    border-color: rgba(255, 0, 60, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(255, 0, 60, 0.2), inset 0 0 20px rgba(255, 0, 60, 0.2);
+    animation: glitch-shake 0.4s infinite;
+}
+.vault-container.error h1, .vault-container.error p { color: var(--error-color); text-shadow: 0 0 8px var(--error-color); }
+.vault-container.error input { border-color: var(--error-color); color: var(--error-color); background: rgba(255,0,60,0.05); }
+.vault-container.error button { border-color: var(--error-color); color: var(--error-color); background: rgba(255,0,60,0.1); }
 
-        .vault-container.error {
-            border-color: rgba(255, 0, 60, 0.5);
-            box-shadow: 0 8px 32px 0 rgba(255, 0, 60, 0.2), inset 0 0 20px rgba(255, 0, 60, 0.2);
-            animation: glitch-shake 0.4s infinite;
-        }
-        .vault-container.error h1, .vault-container.error p { color: var(--error-color); text-shadow: 0 0 8px var(--error-color); }
-        .vault-container.error input { border-color: var(--error-color); color: var(--error-color); background: rgba(255,0,60,0.05); }
-        .vault-container.error button { border-color: var(--error-color); color: var(--error-color); background: rgba(255,0,60,0.1); }
+@keyframes glitch-shake { 0% { transform: translate(0) } 20% { transform: translate(-5px,2px) } 40% { transform: translate(5px,-2px) } 60% { transform: translate(-5px,-2px) } 80% { transform: translate(5,2px) } 100% { transform: translate(0) } }
 
-        @keyframes glitch-shake { 0% { transform: translate(0) } 20% { transform: translate(-5px,2px) } 40% { transform: translate(5px,-2px) } 60% { transform: translate(-5px,-2px) } 80% { transform: translate(5px,2px) } 100% { transform: translate(0) } }
+.vault-container.success { border-color: rgba(0,255,0,0.5); box-shadow: 0 8px 32px 0 rgba(0,255,0,0.2), inset 0 0 20px rgba(0,255,0,0.2); }
+.vault-container.success h1, .vault-container.success p { color: var(--success-color); text-shadow: 0 0 8px var(--success-color); }
+.vault-container.success input { border-color: var(--success-color); color: var(--success-color); background: rgba(0,255,0,0.05); }
 
-        .vault-container.success { border-color: rgba(0,255,0,0.5); box-shadow: 0 8px 32px 0 rgba(0,255,0,0.2), inset 0 0 20px rgba(0,255,0,0.2); }
-        .vault-container.success h1, .vault-container.success p { color: var(--success-color); text-shadow: 0 0 8px var(--success-color); }
-        .vault-container.success input { border-color: var(--success-color); color: var(--success-color); background: rgba(0,255,0,0.05); }
-
-        /* Footer Instagram */
-        .footer { position: absolute; bottom: 20px; text-align: center; width: 100%; color: var(--primary-color); font-size: 0.9em; letter-spacing: 1px; }
-        .instagram-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px; }
-        .instagram-link img { width: 24px; height: 24px; border-radius: 4px; cursor: pointer; filter: invert(70%) sepia(100%) saturate(500%) hue-rotate(170deg); transition: all 0.3s ease; }
-        .instagram-link img:hover { transform: scale(1.2); filter: invert(0%) sepia(100%) saturate(500%) hue-rotate(330deg); }
-        .instagram-link span { cursor: pointer; font-weight: bold; text-shadow: 0 0 6px var(--primary-color); }
-    </style>
+.footer { position: absolute; bottom: 20px; text-align: center; width: 100%; color: var(--primary-color); font-size: 0.9em; letter-spacing: 1px; }
+.instagram-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px; }
+.instagram-link img { width: 24px; height: 24px; border-radius: 4px; cursor: pointer; filter: invert(70%) sepia(100%) saturate(500%) hue-rotate(170deg); transition: all 0.3s ease; }
+.instagram-link img:hover { transform: scale(1.2); filter: invert(0%) sepia(100%) saturate(500%) hue-rotate(330deg); }
+.instagram-link span { cursor: pointer; font-weight: bold; text-shadow: 0 0 6px var(--primary-color); }
+</style>
 </head>
 <body>
+
 <div class="vault-container" id="vault">
     <h1>// SYS_VAULT</h1>
     <p id="status-msg">AWAITING DECRYPTION KEY</p>
@@ -130,8 +129,8 @@
 <div class="footer">
     DM for DECRYPTION KEY
     <div class="instagram-link">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" onclick="window.open('https://instagram.com/YOUR_INSTAGRAM','_blank')" />
-        <span>CLICK HERE 👉</span>
+        <span>👈 CLICK HERE</span>
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" onclick="window.open('https://instagram.com/alpha_for_a_reason_','_blank')" />
     </div>
 </div>
 
@@ -145,11 +144,12 @@ async function checkPassword() {
     const passValue = passInput.value;
     const container = document.getElementById("vault");
     const statusMsg = document.getElementById("status-msg");
-    const redirectURL = "https://github.com"; // your redirect
+    const redirectURL = "https://github.com";
 
+    // SHA-256 hash of the correct password
     const correctHash = "1188de4fa8d810f60b4de3c863d92de8f3c9832f3b8cf123db95d894452312e7";
 
-    // SHA-256 hash the entered password
+    // Hash the entered password
     const hashBuffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(passValue));
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
@@ -171,4 +171,4 @@ async function checkPassword() {
             passInput.focus();
         }, 1500);
     }
-}
+            }
