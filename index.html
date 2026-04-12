@@ -145,30 +145,30 @@ async function checkPassword() {
     const passValue = passInput.value;
     const container = document.getElementById("vault");
     const statusMsg = document.getElementById("status-msg");
-    const redirectURL = "https://github.com";
+    const redirectURL = "https://github.com"; // your redirect
 
     const correctHash = "1188de4fa8d810f60b4de3c863d92de8f3c9832f3b8cf123db95d894452312e7";
 
-const hashBuffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(passValue));
-const hashArray = Array.from(new Uint8Array(hashBuffer));
-const hashHex = hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
+    // SHA-256 hash the entered password
+    const hashBuffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(passValue));
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
 
-if(hashHex === correctHash) {
-    container.classList.remove("error");
-    container.classList.add("success");
-    statusMsg.innerText = "ACCESS GRANTED. DECRYPTING...";
-    passInput.disabled = true;
-    document.querySelector("button").disabled = true;
-    setTimeout(() => {
-        window.location.href = redirectURL;
-    }, 1500);
-} else {
-    container.classList.add("error");
-    statusMsg.innerText = "ERR: UNAUTHORIZED ACCESS ATTEMPT";
-    setTimeout(() => {
+    if(hashHex === correctHash) {
         container.classList.remove("error");
-        statusMsg.innerText = "AWAITING DECRYPTION KEY";
-        passInput.value = "";
-        passInput.focus();
-    }, 1500);
+        container.classList.add("success");
+        statusMsg.innerText = "ACCESS GRANTED. DECRYPTING...";
+        passInput.disabled = true;
+        document.querySelector("button").disabled = true;
+        setTimeout(() => { window.location.href = redirectURL; }, 1500);
+    } else {
+        container.classList.add("error");
+        statusMsg.innerText = "ERR: UNAUTHORIZED ACCESS ATTEMPT";
+        setTimeout(() => {
+            container.classList.remove("error");
+            statusMsg.innerText = "AWAITING DECRYPTION KEY";
+            passInput.value = "";
+            passInput.focus();
+        }, 1500);
+    }
 }
