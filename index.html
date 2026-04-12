@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE VAULT // TERMINAL</title>
+    <style>
+        /* Base Cyberpunk Theme Settings */
+        :root {
+            --primary-color: #0df; /* Neon Cyan */
+            --bg-color: #050505;
+            --error-color: #ff003c; /* Cyberpunk Red */
+            --success-color: #0f0; /* Matrix Green */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            /* CRT Scanline effect for background */
+            background-image: repeating-linear-gradient(
+                0deg,
+                rgba(0, 221, 255, 0.03),
+                rgba(0, 221, 255, 0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+        }
+
+        /* High-Tech Glassmorphism Vault Container */
+        .vault-container {
+            border: 1px solid rgba(0, 221, 255, 0.3);
+            padding: 40px;
+            /* Frosted glass effect */
+            background: rgba(5, 10, 15, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            /* Soft neon glow */
+            box-shadow: 0 8px 32px 0 rgba(0, 221, 255, 0.2), inset 0 0 20px rgba(0, 221, 255, 0.1);
+            text-align: center;
+            width: 400px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Corner accents for the high-tech look */
+        .vault-container::before, .vault-container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+        .vault-container::before { top: -1px; left: -1px; border-right: none; border-bottom: none; border-top-left-radius: 8px; }
+        .vault-container::after { bottom: -1px; right: -1px; border-left: none; border-top: none; border-bottom-right-radius: 8px; }
+
+        h1 {
+            font-size: 1.6em;
+            letter-spacing: 3px;
+            text-shadow: 0 0 8px var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        /* Input Field */
+        input {
+            background: rgba(0, 221, 255, 0.05);
+            border: 1px solid rgba(0, 221, 255, 0.5);
+            color: var(--primary-color);
+            padding: 12px;
+            width: 80%;
+            font-family: inherit;
+            font-size: 1.2em;
+            outline: none;
+            text-align: center;
+            letter-spacing: 5px;
+            border-radius: 4px;
+            box-shadow: inset 0 0 10px rgba(0, 221, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            background: rgba(0, 221, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 221, 255, 0.4), inset 0 0 10px rgba(0, 221, 255, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        /* Submit Button */
+        button {
+            background: rgba(0, 221, 255, 0.1);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 10px 30px;
+            font-family: inherit;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 221, 255, 0.2);
+            backdrop-filter: blur(4px);
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        /* =========================================
+           ERROR STATE (Wrong Password) 
+           ========================================= */
+        .vault-container.error {
+            border-color: rgba(255, 0, 60, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(255, 0, 60, 0.2), inset 0 0 20px rgba(255, 0, 60, 0.2);
+            animation: glitch-shake 0.4s infinite;
+        }
+        
+        .vault-container.error::before, .vault-container.error::after {
+            border-color: var(--error-color);
+        }
+
+        .vault-container.error h1,
+        .vault-container.error p {
+            color: var(--error-color);
+            text-shadow: 0 0 8px var(--error-color);
+        }
+
+        .vault-container.error input {
+            border-color: var(--error-color);
+            color: var(--error-color);
+            box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.2);
+            background: rgba(255, 0, 60, 0.05);
+        }
+
+        .vault-container.error button {
+            border-color: var(--error-color);
+            color: var(--error-color);
+            background: rgba(255, 0, 60, 0.1);
+            box-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
+        }
+
+        @keyframes glitch-shake {
+            0% { transform: translate(0) }
+            20% { transform: translate(-5px, 2px) }
+            40% { transform: translate(5px, -2px) }
+            60% { transform: translate(-5px, -2px) }
+            80% { transform: translate(5px, 2px) }
+            100% { transform: translate(0) }
+        }
+
+        /* =========================================
+           SUCCESS STATE (Right Password) 
+           ========================================= */
+        .vault-container.success {
+            border-color: rgba(0, 255, 0, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(0, 255, 0, 0.2), inset 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+
+        .vault-container.success::before, .vault-container.success::after {
+            border-color: var(--success-color);
+        }
+
+        .vault-container.success h1, .vault-container.success p {
+            color: var(--success-color);
+            text-shadow: 0 0 8px var(--success-color);
+        }
+        
+        .vault-container.success input {
+            border-color: var(--success-color);
+            color: var(--success-color);
+            background: rgba(0, 255, 0, 0.05);
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vault-container" id="vault">
+        <h1>// SYS_VAULT</h1>
+        <p id="status-msg">AWAITING DECRYPTION KEY</p>
+        
+        <div class="input-group">
+            <input type="password" id="passcode" placeholder="••••••••" autocomplete="off" />
+            <br>
+            <button onclick="checkPassword()">DECRYPT</button>
+        </div>
+    </div>
+
+    <script>
+        // Listen for "Enter" key press inside the input field
+        document.getElementById("passcode").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                checkPassword();
+            }
+        });
+
+        function checkPassword() {
+            const passInput = document.getElementById("passcode");
+            const passValue = passInput.value;
+            const container = document.getElementById("vault");
+            const statusMsg = document.getElementById("status-msg");
+
+            /* =========================================
+               CONFIGURATION: Set your password and link 
+               ========================================= */
+            const correctPassword = "CYBER2077"; // <--- CHANGE PASSWORD HERE
+            const redirectURL = "https://github.com"; // <--- CHANGE REDIRECT LINK HERE
+
+            // Checking the password
+            if (passValue === correctPassword) {
+                // SUCCESS
+                container.classList.remove("error");
+                container.classList.add("success");
+                statusMsg.innerText = "ACCESS GRANTED. DECRYPTING...";
+                
+                // Disable input and button to prevent spamming
+                passInput.disabled = true;
+                document.querySelector("button").disabled = true;
+
+                // Wait 1.5 seconds for dramatic effect, then redirect
+                setTimeout(() => {
+                    window.location.href = redirectURL;
+                }, 1500);
+
+            } else {
+                // FAILURE
+                container.classList.add("error");
+                statusMsg.innerText = "ERR: UNAUTHORIZED ACCESS ATTEMPT";
+                
+                // Remove the red error state after 1.5 seconds so they can try again
+                setTimeout(() => {
+                    container.classList.remove("error");
+                    statusMsg.innerText = "AWAITING DECRYPTION KEY";
+                    passInput.value = ""; // Clear the wrong password
+                    passInput.focus();
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+  </html>
