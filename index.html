@@ -1,79 +1,34 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SECURE VAULT // TERMINAL</title>
 <style>
-:root {
-    --primary-color: #0df;
-    --bg-color: #050505;
-    --error-color: #ff003c;
-    --success-color: #0f0;
-}
-body {
-    background-color: var(--bg-color);
-    color: var(--primary-color);
-    font-family: 'Courier New', monospace;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;
-    background-image: repeating-linear-gradient(
-        0deg,
-        rgba(0, 221, 255, 0.03),
-        rgba(0, 221, 255, 0.03) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-}
-.vault-container {
-    border: 1px solid rgba(0, 221, 255, 0.3);
-    padding: 40px;
-    background: rgba(5, 10, 15, 0.4);
-    backdrop-filter: blur(12px);
-    text-align: center;
-    width: 400px;
-    border-radius: 8px;
-    position: relative;
-    z-index: 10;
-}
-h1 { font-size: 1.6em; letter-spacing: 3px; text-shadow: 0 0 8px var(--primary-color); margin-bottom: 5px; }
-p { font-size: 0.9em; opacity: 0.8; margin-bottom: 25px; letter-spacing: 1px; }
-input {
-    background: rgba(0, 221, 255, 0.05);
-    border: 1px solid rgba(0, 221, 255, 0.5);
-    color: var(--primary-color);
-    padding: 12px;
-    width: 80%;
-    font-size: 1.2em;
-    text-align: center;
-    letter-spacing: 5px;
-    border-radius: 4px;
-    outline: none;
-}
-button {
-    background: rgba(0, 221, 255, 0.1);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    padding: 10px 30px;
-    margin-top: 20px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-button:hover { background: var(--primary-color); color: #000; }
+:root { --primary-color: #0df; --bg-color: #050505; --error-color: #ff003c; --success-color: #0f0; }
+body { background-color: var(--bg-color); color: var(--primary-color); font-family: 'Courier New', monospace; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; overflow:hidden; }
+h2.header-text { text-align:center; color:#0df; font-family:'Courier New', monospace; letter-spacing:2px; margin-bottom:20px; text-shadow:0 0 8px #0df; }
+.vault-container { border:1px solid rgba(0,221,255,0.3); padding:40px; background:rgba(5,10,15,0.4); backdrop-filter:blur(12px); text-align:center; width:400px; border-radius:8px; }
+h1 { font-size:1.6em; letter-spacing:3px; text-shadow:0 0 8px var(--primary-color); margin-bottom:5px; }
+p { font-size:0.9em; opacity:0.8; margin-bottom:25px; letter-spacing:1px; }
+input { background: rgba(0,221,255,0.05); border:1px solid rgba(0,221,255,0.5); color: var(--primary-color); padding:12px; width:80%; font-size:1.2em; text-align:center; letter-spacing:5px; border-radius:4px; outline:none; }
+button { background: rgba(0,221,255,0.1); color: var(--primary-color); border:1px solid var(--primary-color); padding:10px 30px; margin-top:20px; cursor:pointer; border-radius:4px; }
+button:hover { background: var(--primary-color); color:#000; }
 .vault-container.error { border-color: var(--error-color); }
 .vault-container.success { border-color: var(--success-color); }
-.footer { position: absolute; bottom: 20px; text-align: center; width: 100%; color: var(--primary-color); font-size: 0.9em; letter-spacing: 1px; }
-.instagram-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px; }
-.instagram-link img { width: 24px; height: 24px; cursor: pointer; }
-.instagram-link span { font-weight: bold; cursor: pointer; }
+.footer { position:absolute; bottom:20px; text-align:center; width:100%; color: var(--primary-color); font-size:0.9em; letter-spacing:1px; }
+.instagram-link { display:inline-flex; align-items:center; justify-content:center; gap:8px; margin-top:5px; }
+.instagram-link img { width:24px; height:24px; cursor:pointer; }
+.instagram-link span { font-weight:bold; cursor:pointer; }
 </style>
 </head>
 <body>
 
+<!-- Header Text -->
+<h2 class="header-text">Alpha se Bahas matlab Zidagi tahas nahas</h2>
+
+<!-- Vault Container -->
 <div class="vault-container" id="vault">
     <h1>// SYS_VAULT</h1>
     <p id="status-msg">AWAITING DECRYPTION KEY</p>
@@ -84,10 +39,12 @@ button:hover { background: var(--primary-color); color: #000; }
     </div>
 </div>
 
+<!-- Footer with Instagram -->
 <div class="footer">
     DM for DECRYPTION KEY
     <div class="instagram-link">
-        <span> CLICK HERE 👉</span>
+        <span>👈 CLICK HERE</span>
+        <img
         <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" onclick="window.open('https://instagram.com/alpha_for_a_reason_','_blank')" />
     </div>
 </div>
