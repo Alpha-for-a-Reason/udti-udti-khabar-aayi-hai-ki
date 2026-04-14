@@ -5,153 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SECURE VAULT // TERMINAL</title>
 <style>
-:root { --primary-color: #0df; --bg-color: #050505; --error-color: #ff003c; --success-color: #0f0; }
-
-/* Background Image */
-body {
-    background-image: url('https://images.unsplash.com/photo-1776141094775-f831009a511a?q=80&w=1462&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: var(--primary-color);
-    font-family: 'Courier New', monospace;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    margin:0;
-    overflow:hidden;
+:root {
+  --primary-color:#0df;
+  --error-color:#ff003c;
+  --success-color:#0f0;
 }
 
-/* Neon Glow Animations */
+/* Background */
+body {
+  background-image:url('https://images.unsplash.com/photo-1776141094775-f831009a511a?q=80&w=1462&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  font-family:'Courier New', monospace;
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  color:var(--primary-color);
+}
+
+/* Neon Animations */
 @keyframes neonGlow {
-    0%,100% { text-shadow: 0 0 6px #0df,0 0 12px #0df,0 0 18px #0df,0 0 30px #0df; }
-    50% { text-shadow: 0 0 2px #0df,0 0 6px #0df,0 0 10px #0df,0 0 18px #0df; }
+  0%,100% { text-shadow:0 0 6px #0df,0 0 12px #0df,0 0 18px #0df,0 0 30px #0df; }
+  50% { text-shadow:0 0 2px #0df,0 0 6px #0df,0 0 10px #0df,0 0 18px #0df; }
 }
 @keyframes inputGlow {
-    0%,100% { box-shadow: 0 0 6px #0df,0 0 12px #0df inset; }
-    50% { box-shadow: 0 0 3px #0df,0 0 6px #0df inset; }
+  0%,100% { box-shadow:0 0 6px #0df,0 0 12px #0df inset; }
+  50% { box-shadow:0 0 3px #0df,0 0 6px #0df inset; }
 }
 
-/* First Header Text */
-h2.header-text {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: #0df;
-    font-family: 'Courier New', monospace;
-    letter-spacing: 2px;
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    backdrop-filter: none;
-    animation: neonGlow 1.5s infinite alternate;
-    z-index: 1000;
+/* Headers */
+.header-text, .second-header {
+  text-align:center;
+  width:100%;
+  animation:neonGlow 1.5s infinite alternate;
+  background:transparent;
+  margin:0;
+  padding:0;
 }
+.header-text { font-size:1.4em; margin-top:5vh; }
+.second-header { font-size:1.2em; margin-top:1vh; }
 
-/* Second Header Text */
-h2.second-header {
-    position: fixed;
-    top: 50px; /* Slightly below the first header */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.2em;
-    letter-spacing: 2px;
-    color: #0df;
-    text-align: center;
-    background: transparent;
-    backdrop-filter: none;
-    animation: neonGlow 1.5s infinite alternate;
-    z-index: 1000;
-}
-
-/* Vault Container (More Transparent) */
+/* Vault Container */
 .vault-container {
-    border:1px solid rgba(0,221,255,0.3);
-    padding:40px;
-    background: rgba(5,10,15,0.15); /* More transparent */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    text-align:center;
-    width:400px;
-    border-radius:8px;
-    box-shadow: 0 0 20px rgba(0,221,255,0.6),0 0 60px rgba(0,221,255,0.3) inset;
-    animation: neonGlow 1.8s infinite alternate;
-    margin-top: 100px; /* Ensure vault doesn't overlap headers */
+  border:1px solid rgba(0,221,255,0.3);
+  padding:30px 20px;
+  background: rgba(5,10,15,0.15);
+  backdrop-filter: blur(12px);
+  width:90%;
+  max-width:400px;
+  border-radius:8px;
+  text-align:center;
+  box-shadow:0 0 20px rgba(0,221,255,0.6),0 0 60px rgba(0,221,255,0.3) inset;
+  margin-top:5vh;
 }
 
+/* Vault Texts */
 h1 { font-size:1.6em; letter-spacing:3px; text-shadow:0 0 8px var(--primary-color); margin-bottom:5px; }
-p { font-size:0.9em; opacity:0.8; margin-bottom:25px; letter-spacing:1px; }
+p { font-size:0.9em; opacity:0.8; margin-bottom:20px; letter-spacing:1px; }
 
-/* Input and Button Neon Glow */
+/* Input and Button */
 input {
-    background: rgba(0,221,255,0.05);
-    border:1px solid rgba(0,221,255,0.5);
-    color: var(--primary-color);
-    padding:12px;
-    width:80%;
-    font-size:1.2em;
-    text-align:center;
-    letter-spacing:5px;
-    border-radius:4px;
-    outline:none;
-    animation: inputGlow 1.5s infinite alternate;
+  background: rgba(0,221,255,0.05);
+  border:1px solid rgba(0,221,255,0.5);
+  color: var(--primary-color);
+  padding:12px;
+  width:80%;
+  font-size:1.2em;
+  text-align:center;
+  letter-spacing:5px;
+  border-radius:4px;
+  outline:none;
+  animation:inputGlow 1.5s infinite alternate;
 }
-input:focus { 
-    background: rgba(0,221,255,0.15);
-    box-shadow: 0 0 15px #0df,0 0 30px #0df inset;
-}
+input:focus { background:rgba(0,221,255,0.15); box-shadow:0 0 15px #0df,0 0 30px #0df inset; }
 
 button {
-    background: rgba(0,221,255,0.1);
-    color: var(--primary-color);
-    border:1px solid var(--primary-color);
-    padding:10px 30px;
-    margin-top:20px;
-    cursor:pointer;
-    border-radius:4px;
-    font-weight:bold;
-    letter-spacing:2px;
-    animation: inputGlow 1.5s infinite alternate;
+  background: rgba(0,221,255,0.1);
+  color: var(--primary-color);
+  border:1px solid var(--primary-color);
+  padding:10px 30px;
+  margin-top:15px;
+  cursor:pointer;
+  border-radius:4px;
+  font-weight:bold;
+  letter-spacing:2px;
+  animation: inputGlow 1.5s infinite alternate;
 }
-button:hover { background: var(--primary-color); color:#000; box-shadow: 0 0 15px #0df,0 0 30px #0df inset; }
+button:hover { background:var(--primary-color); color:#000; box-shadow:0 0 15px #0df,0 0 30px #0df inset; }
 
-/* Vault states */
+/* Vault States */
 .vault-container.error { border-color: var(--error-color); }
 .vault-container.success { border-color: var(--success-color); }
 
 /* Footer */
 .footer {
-    position:absolute;
-    bottom:20px;
-    text-align:center;
-    width:100%;
-    color: var(--primary-color);
-    font-size:0.9em;
-    letter-spacing:1px;
-    background: rgba(0,0,0,0.2);
-    backdrop-filter: blur(8px);
-    padding:5px 10px;
-    border-radius:6px;
+  text-align:center;
+  width:100%;
+  color: var(--primary-color);
+  font-size:0.9em;
+  letter-spacing:1px;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(8px);
+  padding:5px 10px;
+  border-radius:6px;
+  margin-top:auto;
 }
-
-/* Instagram Link */
 .instagram-link {
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    margin-top:5px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:5px;
 }
-.instagram-link img {
-    width:24px;
-    height:24px;
-    cursor:pointer;
-}
+.instagram-link img { width:24px; height:24px; cursor:pointer; }
 .instagram-link span { font-weight:bold; cursor:pointer; }
+
+/* Responsive */
+@media(max-width:600px) {
+  .header-text { font-size:1.2em; margin-top:4vh; }
+  .second-header { font-size:1em; margin-top:0.5vh; }
+  .vault-container { padding:25px 15px; margin-top:4vh; width:95%; }
+  input, button { width:90%; font-size:1em; }
+}
+@media(max-height:500px) {
+  .vault-container { margin-top:2vh; padding:20px 10px; }
+  h1 { font-size:1.4em; }
+  p { font-size:0.8em; }
+  input { font-size:1em; }
+  button { font-size:0.9em; }
+}
 </style>
 </head>
 <body>
@@ -160,55 +146,56 @@ button:hover { background: var(--primary-color); color:#000; box-shadow: 0 0 15p
 <h2 class="second-header">Only Few Can Understand</h2>
 
 <div class="vault-container" id="vault">
-    <h1>ALPHA_VAULT 🕸️</h1>
-    <p id="status-msg">DECRYPTION KEY REQUIRED</p>
-    <div class="input-group">
-        <input type="password" id="passcode" placeholder="••••••••" autocomplete="off" />
-        <br>
-        <button onclick="checkPassword()">DECRYPT</button>
-    </div>
+  <h1>ALPHA_VAULT 🕸️</h1>
+  <p id="status-msg">DECRYPTION KEY REQUIRED</p>
+  <div class="input-group">
+    <input type="password" id="passcode" placeholder="••••••••" autocomplete="off" />
+    <br>
+    <button onclick="checkPassword()">DECRYPT</button>
+  </div>
 </div>
 
 <div class="footer">
-    DM for DECRYPTION KEY
-    <div class="instagram-link">
-        <span>CLICK HERE 👉</span>
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" onclick="window.open('https://instagram.com/alpha_for_a_reason_','_blank')" />
-    </div>
+  DM for DECRYPTION KEY
+  <div class="instagram-link">
+    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" onclick="window.open('https://instagram.com/alpha_for_a_reason','_blank')" />
+    <span>CLICK HERE 👉</span>
+  </div>
 </div>
 
 <script>
 document.getElementById("passcode").addEventListener("keypress", function(e){
-    if(e.key === "Enter"){ e.preventDefault(); checkPassword(); }
+  if(e.key==="Enter"){ e.preventDefault(); checkPassword(); }
 });
-
 async function checkPassword() {
-    const input = document.getElementById("passcode");
-    const value = input.value.trim();
-    const container = document.getElementById("vault");
-    const statusMsg = document.getElementById("status-msg");
-    const redirectURL = "https://github.com";
-
-    const correctHash = "1188de4fa8d810f60b4de3c863d92de8f3c9832f3b8cf123db95d894452312e7";
-
-    const encoder = new TextEncoder();
-    const data = encoder.encode(value);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
-
-    if(hashHex === correctHash) {
-        container.classList.remove("error");
-        container.classList.add("success");
-        statusMsg.innerText = "ACCESS GRANTED. DECRYPTING...";
-        input.disabled = true;
-        document.querySelector("button").disabled = true;
-        setTimeout(()=>{ window.location.href=redirectURL; },1500);
-    } else {
-        container.classList.add("error");
-        statusMsg.innerText = "ERR: UNAUTHORIZED ACCESS ATTEMPT";
-        setTimeout(()=>{ container.classList.remove("error"); statusMsg.innerText="AWAITING DECRYPTION KEY"; input.value=""; input.focus(); },1500);
-    }
+  const input=document.getElementById("passcode");
+  const value=input.value.trim();
+  const container=document.getElementById("vault");
+  const statusMsg=document.getElementById("status-msg");
+  const redirectURL="https://github.com";
+  const correctHash="1188de4fa8d810f60b4de3c863d92de8f3c9832f3b8cf123db95d894452312e7";
+  const encoder=new TextEncoder();
+  const data=encoder.encode(value);
+  const hashBuffer=await crypto.subtle.digest('SHA-256',data);
+  const hashArray=Array.from(new Uint8Array(hashBuffer));
+  const hashHex=hashArray.map(b=>b.toString(16).padStart(2,'0')).join('');
+  if(hashHex===correctHash){
+    container.classList.remove("error");
+    container.classList.add("success");
+    statusMsg.innerText="ACCESS GRANTED. DECRYPTING...";
+    input.disabled=true;
+    document.querySelector("button").disabled=true;
+    setTimeout(()=>{ window.location.href=redirectURL; },1500);
+  } else {
+    container.classList.add("error");
+    statusMsg.innerText="ERR: UNAUTHORIZED ACCESS ATTEMPT";
+    setTimeout(()=>{
+      container.classList.remove("error");
+      statusMsg.innerText="AWAITING DECRYPTION KEY";
+      input.value="";
+      input.focus();
+    },1500);
+  }
 }
 </script>
 </body>
