@@ -9,7 +9,7 @@
 
 /* Background Image */
 body {
-    background-image: url('https://images.unsplash.com/photo-1776141094775-f831009a511a?q=80&w=1462&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
+    background-image: url('https://images.unsplash.com/photo-1776141094775-f831009a511a?q=80&w=1462&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -36,16 +36,20 @@ body {
 
 /* Header Text */
 h2.header-text {
-    text-align:center;
-    color:#0df;
-    font-family:'Courier New', monospace;
-    letter-spacing:2px;
-    margin-bottom:20px;
-    padding:5px 10px;
-    border-radius:6px;
-    background: rgba(0,0,0,0.2);
-    backdrop-filter: blur(8px);
+    position: fixed;       /* Stick at top */
+    top: 10px;             /* Slight margin from top */
+    left: 50%;             /* Center horizontally */
+    transform: translateX(-50%);
+    text-align: center;
+    color: #0df;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 0;            /* Fully transparent */
+    background: transparent; 
+    backdrop-filter: none; /* No blur behind text */
     animation: neonGlow 1.5s infinite alternate;
+    z-index: 1000;         /* Keep on top */
 }
 
 /* Vault Container */
@@ -60,6 +64,7 @@ h2.header-text {
     border-radius:8px;
     box-shadow: 0 0 20px rgba(0,221,255,0.6),0 0 60px rgba(0,221,255,0.3) inset;
     animation: neonGlow 1.8s infinite alternate;
+    margin-top: 60px; /* Ensure vault doesn't overlap fixed header */
 }
 h1 { font-size:1.6em; letter-spacing:3px; text-shadow:0 0 8px var(--primary-color); margin-bottom:5px; }
 p { font-size:0.9em; opacity:0.8; margin-bottom:25px; letter-spacing:1px; }
