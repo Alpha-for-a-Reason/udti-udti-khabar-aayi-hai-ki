@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,28 +6,136 @@
 <title>SECURE VAULT // TERMINAL</title>
 <style>
 :root { --primary-color: #0df; --bg-color: #050505; --error-color: #ff003c; --success-color: #0f0; }
-body { background-color: var(--bg-color); color: var(--primary-color); font-family: 'Courier New', monospace; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; overflow:hidden; }
-h2.header-text { text-align:center; color:#0df; font-family:'Courier New', monospace; letter-spacing:2px; margin-bottom:20px; text-shadow:0 0 8px #0df; }
-.vault-container { border:1px solid rgba(0,221,255,0.3); padding:40px; background:rgba(5,10,15,0.4); backdrop-filter:blur(12px); text-align:center; width:400px; border-radius:8px; }
+
+/* Background Image */
+body {
+    background-image: url('https://images.unsplash.com/photo-1776141094775-f831009a511a?q=80&w=1462&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--primary-color);
+    font-family: 'Courier New', monospace;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+    overflow:hidden;
+}
+
+/* Neon Glow Animations */
+@keyframes neonGlow {
+    0%,100% { text-shadow: 0 0 6px #0df,0 0 12px #0df,0 0 18px #0df,0 0 30px #0df; }
+    50% { text-shadow: 0 0 2px #0df,0 0 6px #0df,0 0 10px #0df,0 0 18px #0df; }
+}
+@keyframes inputGlow {
+    0%,100% { box-shadow: 0 0 6px #0df,0 0 12px #0df inset; }
+    50% { box-shadow: 0 0 3px #0df,0 0 6px #0df inset; }
+}
+
+/* Header Text */
+h2.header-text {
+    text-align:center;
+    color:#0df;
+    font-family:'Courier New', monospace;
+    letter-spacing:2px;
+    margin-bottom:20px;
+    padding:5px 10px;
+    border-radius:6px;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(8px);
+    animation: neonGlow 1.5s infinite alternate;
+}
+
+/* Vault Container */
+.vault-container {
+    border:1px solid rgba(0,221,255,0.3);
+    padding:40px;
+    background: rgba(5,10,15,0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    text-align:center;
+    width:400px;
+    border-radius:8px;
+    box-shadow: 0 0 20px rgba(0,221,255,0.6),0 0 60px rgba(0,221,255,0.3) inset;
+    animation: neonGlow 1.8s infinite alternate;
+}
 h1 { font-size:1.6em; letter-spacing:3px; text-shadow:0 0 8px var(--primary-color); margin-bottom:5px; }
 p { font-size:0.9em; opacity:0.8; margin-bottom:25px; letter-spacing:1px; }
-input { background: rgba(0,221,255,0.05); border:1px solid rgba(0,221,255,0.5); color: var(--primary-color); padding:12px; width:80%; font-size:1.2em; text-align:center; letter-spacing:5px; border-radius:4px; outline:none; }
-button { background: rgba(0,221,255,0.1); color: var(--primary-color); border:1px solid var(--primary-color); padding:10px 30px; margin-top:20px; cursor:pointer; border-radius:4px; }
-button:hover { background: var(--primary-color); color:#000; }
+
+/* Input and Button Neon Glow */
+input {
+    background: rgba(0,221,255,0.05);
+    border:1px solid rgba(0,221,255,0.5);
+    color: var(--primary-color);
+    padding:12px;
+    width:80%;
+    font-size:1.2em;
+    text-align:center;
+    letter-spacing:5px;
+    border-radius:4px;
+    outline:none;
+    animation: inputGlow 1.5s infinite alternate;
+}
+input:focus { 
+    background: rgba(0,221,255,0.15);
+    box-shadow: 0 0 15px #0df,0 0 30px #0df inset;
+}
+
+button {
+    background: rgba(0,221,255,0.1);
+    color: var(--primary-color);
+    border:1px solid var(--primary-color);
+    padding:10px 30px;
+    margin-top:20px;
+    cursor:pointer;
+    border-radius:4px;
+    font-weight:bold;
+    letter-spacing:2px;
+    animation: inputGlow 1.5s infinite alternate;
+}
+button:hover { background: var(--primary-color); color:#000; box-shadow: 0 0 15px #0df,0 0 30px #0df inset; }
+
+/* Vault states */
 .vault-container.error { border-color: var(--error-color); }
 .vault-container.success { border-color: var(--success-color); }
-.footer { position:absolute; bottom:20px; text-align:center; width:100%; color: var(--primary-color); font-size:0.9em; letter-spacing:1px; }
-.instagram-link { display:inline-flex; align-items:center; justify-content:center; gap:8px; margin-top:5px; }
-.instagram-link img { width:24px; height:24px; cursor:pointer; }
+
+/* Footer */
+.footer {
+    position:absolute;
+    bottom:20px;
+    text-align:center;
+    width:100%;
+    color: var(--primary-color);
+    font-size:0.9em;
+    letter-spacing:1px;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(8px);
+    padding:5px 10px;
+    border-radius:6px;
+}
+
+/* Instagram Link */
+.instagram-link {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin-top:5px;
+}
+.instagram-link img {
+    width:24px;
+    height:24px;
+    cursor:pointer;
+}
 .instagram-link span { font-weight:bold; cursor:pointer; }
 </style>
 </head>
 <body>
 
-<!-- Header Text -->
 <h2 class="header-text">Alpha se Bahas matlab Zidagi tahas nahas</h2>
 
-<!-- Vault Container -->
 <div class="vault-container" id="vault">
     <h1>// SYS_VAULT</h1>
     <p id="status-msg">AWAITING DECRYPTION KEY</p>
@@ -38,7 +146,6 @@ button:hover { background: var(--primary-color); color:#000; }
     </div>
 </div>
 
-<!-- Footer with Instagram -->
 <div class="footer">
     DM for DECRYPTION KEY
     <div class="instagram-link">
@@ -54,14 +161,13 @@ document.getElementById("passcode").addEventListener("keypress", function(e){
 
 async function checkPassword() {
     const input = document.getElementById("passcode");
-    const value = input.value.trim(); // remove spaces
+    const value = input.value.trim();
     const container = document.getElementById("vault");
     const statusMsg = document.getElementById("status-msg");
     const redirectURL = "https://github.com";
 
-    const correctHash = "1188de4fa8d810f60b4de3c863d92de8f3c9832f3b8cf123db95d894452312e7"; // SHA-256 of katuachodipradhan
+    const correctHash = "1188de4fa8d810f60b4de3c863d92de8f3c9832f3b8cf123db95d894452312e7";
 
-    // SHA-256 hashing
     const encoder = new TextEncoder();
     const data = encoder.encode(value);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -82,6 +188,5 @@ async function checkPassword() {
     }
 }
 </script>
-
 </body>
 </html>
