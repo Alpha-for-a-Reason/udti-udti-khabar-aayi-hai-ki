@@ -34,29 +34,45 @@ body {
     50% { box-shadow: 0 0 3px #0df,0 0 6px #0df inset; }
 }
 
-/* Header Text */
+/* First Header Text */
 h2.header-text {
-    position: fixed;       /* Stick at top */
-    top: 10px;             /* Slight margin from top */
-    left: 50%;             /* Center horizontally */
+    position: fixed;
+    top: 10px;
+    left: 50%;
     transform: translateX(-50%);
     text-align: center;
     color: #0df;
     font-family: 'Courier New', monospace;
     letter-spacing: 2px;
     margin: 0;
-    padding: 0;            /* Fully transparent */
-    background: transparent; 
-    backdrop-filter: none; /* No blur behind text */
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
     animation: neonGlow 1.5s infinite alternate;
-    z-index: 1000;         /* Keep on top */
+    z-index: 1000;
 }
 
-/* Vault Container */
+/* Second Header Text */
+h2.second-header {
+    position: fixed;
+    top: 50px; /* Slightly below the first header */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em;
+    letter-spacing: 2px;
+    color: #0df;
+    text-align: center;
+    background: transparent;
+    backdrop-filter: none;
+    animation: neonGlow 1.5s infinite alternate;
+    z-index: 1000;
+}
+
+/* Vault Container (More Transparent) */
 .vault-container {
     border:1px solid rgba(0,221,255,0.3);
     padding:40px;
-    background: rgba(5,10,15,0.2);
+    background: rgba(5,10,15,0.15); /* More transparent */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     text-align:center;
@@ -64,8 +80,9 @@ h2.header-text {
     border-radius:8px;
     box-shadow: 0 0 20px rgba(0,221,255,0.6),0 0 60px rgba(0,221,255,0.3) inset;
     animation: neonGlow 1.8s infinite alternate;
-    margin-top: 60px; /* Ensure vault doesn't overlap fixed header */
+    margin-top: 100px; /* Ensure vault doesn't overlap headers */
 }
+
 h1 { font-size:1.6em; letter-spacing:3px; text-shadow:0 0 8px var(--primary-color); margin-bottom:5px; }
 p { font-size:0.9em; opacity:0.8; margin-bottom:25px; letter-spacing:1px; }
 
@@ -140,9 +157,10 @@ button:hover { background: var(--primary-color); color:#000; box-shadow: 0 0 15p
 <body>
 
 <h2 class="header-text">Alpha se Bahas matlab Zidagi tahas nahas</h2>
+<h2 class="second-header">Only Few Can Understand</h2>
 
 <div class="vault-container" id="vault">
-    <h1> ALPHA_VAULT 🕸️</h1>
+    <h1>ALPHA_VAULT 🕸️</h1>
     <p id="status-msg">DECRYPTION KEY REQUIRED</p>
     <div class="input-group">
         <input type="password" id="passcode" placeholder="••••••••" autocomplete="off" />
