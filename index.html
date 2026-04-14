@@ -22,9 +22,10 @@ body {
   min-height:100vh;
   display:flex;
   flex-direction:column;
-  justify-content:flex-start;
+  justify-content:space-between; /* Top headers, bottom vault */
   align-items:center;
   color:var(--primary-color);
+  padding:20px 0;
 }
 
 /* Neon Animations */
@@ -46,8 +47,8 @@ body {
   margin:0;
   padding:0;
 }
-.header-text { font-size:1.4em; margin-top:5vh; }
-.second-header { font-size:1.2em; margin-top:1vh; }
+.header-text { font-size:1.4em; }
+.second-header { font-size:1.2em; margin-top:0.5vh; }
 
 /* Vault Container */
 .vault-container {
@@ -60,7 +61,7 @@ body {
   border-radius:8px;
   text-align:center;
   box-shadow:0 0 20px rgba(0,221,255,0.6),0 0 60px rgba(0,221,255,0.3) inset;
-  margin-top:5vh;
+  animation:neonGlow 1.8s infinite alternate;
 }
 
 /* Vault Texts */
@@ -112,7 +113,7 @@ button:hover { background:var(--primary-color); color:#000; box-shadow:0 0 15px 
   backdrop-filter: blur(8px);
   padding:5px 10px;
   border-radius:6px;
-  margin-top:auto;
+  margin-top:10px;
 }
 .instagram-link {
   display:inline-flex;
@@ -126,13 +127,13 @@ button:hover { background:var(--primary-color); color:#000; box-shadow:0 0 15px 
 
 /* Responsive */
 @media(max-width:600px) {
-  .header-text { font-size:1.2em; margin-top:4vh; }
+  .header-text { font-size:1.2em; }
   .second-header { font-size:1em; margin-top:0.5vh; }
-  .vault-container { padding:25px 15px; margin-top:4vh; width:95%; }
+  .vault-container { padding:25px 15px; width:95%; }
   input, button { width:90%; font-size:1em; }
 }
 @media(max-height:500px) {
-  .vault-container { margin-top:2vh; padding:20px 10px; }
+  .vault-container { padding:20px 10px; }
   h1 { font-size:1.4em; }
   p { font-size:0.8em; }
   input { font-size:1em; }
@@ -142,12 +143,14 @@ button:hover { background:var(--primary-color); color:#000; box-shadow:0 0 15px 
 </head>
 <body>
 
-<h2 class="header-text">Alpha se Bahas matlab Zidagi tahas nahas</h2>
-<h2 class="second-header">Only Few Can Understand</h2>
+<div style="text-align:center;">
+  <h2 class="header-text">Alpha se Bahas matlab Zidagi tahas nahas</h2>
+  <h2 class="second-header">Only Few Can Understand</h2>
+</div>
 
 <div class="vault-container" id="vault">
-  <h1>ALPHA_VAULT 🕸️</h1>
-  <p id="status-msg">DECRYPTION KEY REQUIRED</p>
+  <h1>// SYS_VAULT</h1>
+  <p id="status-msg">AWAITING DECRYPTION KEY</p>
   <div class="input-group">
     <input type="password" id="passcode" placeholder="••••••••" autocomplete="off" />
     <br>
@@ -159,7 +162,7 @@ button:hover { background:var(--primary-color); color:#000; box-shadow:0 0 15px 
   DM for DECRYPTION KEY
   <div class="instagram-link">
     <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" onclick="window.open('https://instagram.com/alpha_for_a_reason','_blank')" />
-    <span>CLICK HERE 👉</span>
+    <span>👈 CLICK HERE</span>
   </div>
 </div>
 
