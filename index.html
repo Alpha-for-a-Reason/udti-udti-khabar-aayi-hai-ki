@@ -25,6 +25,7 @@ body {
   align-items:center;
   color:var(--primary-color);
   padding:20px 0;
+  transition: filter 0.3s;
 }
 
 /* Headers */
@@ -110,11 +111,74 @@ button:hover { background:var(--primary-color); color:#000; }
 .instagram-link img { width:24px; height:24px; cursor:pointer; }
 .instagram-link span { font-weight:bold; cursor:pointer; }
 
+/* Message Box */
+.message-box {
+  width:90%;
+  max-width:400px;
+  margin:20px auto;
+  padding:15px 20px;
+  border:2px solid #0df;
+  border-radius:8px;
+  text-align:center;
+  background: rgba(0,0,0,0.3);
+  color: #0df;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.down-arrow {
+  font-size:1.5em;
+  transition: transform 0.3s;
+}
+
+.message-box:hover .down-arrow { transform: translateY(3px); }
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(0px);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+
+.overlay-content {
+  background: rgba(5,10,15,0.95);
+  color:#0df;
+  padding:20px;
+  max-width:600px;
+  width:90%;
+  border-radius:8px;
+  position: relative;
+  text-align:justify;
+  line-height:1.5em;
+  overflow-y:auto;
+  max-height:80vh;
+}
+
+/* Close button */
+.close {
+  position:absolute;
+  top:10px;
+  right:15px;
+  font-size:1.5em;
+  cursor:pointer;
+}
+
 /* Responsive */
 @media(max-width:600px) {
   .header-text { font-size:1.2em; }
   .second-header { font-size:1em; margin-top:0.5vh; }
-  .vault-container { padding:25px 15px; width:95%; }
+  .vault-container, .message-box { padding:25px 15px; width:95%; }
   input, button { width:90%; font-size:1em; }
 }
 </style>
@@ -132,15 +196,31 @@ button:hover { background:var(--primary-color); color:#000; }
   <h2 class="second-header">Only Few Can Understand</h2>
 </div>
 
+<!-- Message Box -->
+<div class="message-box" id="messageBox">
+  <p>Message</p>
+  <div class="down-arrow" id="downArrow">&#x25BC;</div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay">
+  <div class="overlay-content">
+    <span class="close" id="closeOverlay">&times;</span>
+    <p>
+      Just asking one question, Reverse the gender and think, what if there's a male in her place and a female in my place and then the male did to the female exactly what she did to me, then the male absolutely sent to prison, but at this situation she's a girl and the police officer says to me that you don't understand she's a girl. 😡 Motherfucker, So what, what should i do about if she's a girl, she did to me whatever the fuck she want and Now i will do whatever the fuck i want
+    </p>
+  </div>
+</div>
+
 <!-- Vault Section -->
 <div class="vault-container" id="vault">
-  <h1>ALPHA_ VAULT</h1>
+  <h1>ALPHA_VAULT 🕸️</h1>
   <p id="status-msg">DECRYPTION KEY REQUIRED</p>
   <div class="input-group">
     <input type="password" id="passcode" placeholder="••••••••" autocomplete="off" />
     <br>
     <button onclick="checkPassword()">DECRYPT</button>
-    <p style="margin-top:10px; font-size:0.85em; opacity:0.7;">scroll down 👇 for key</p>
+    <p style="margin-top:10px; font-size:0.85em; opacity:0.7;">scroll down for key</p>
   </div>
 </div>
 
@@ -154,11 +234,26 @@ button:hover { background:var(--primary-color); color:#000; }
 </div>
 
 <script>
-// Play background audio after first user interaction
+// Background audio play on first click
 const audio = document.getElementById('bgAudio');
 document.addEventListener('click', () => { audio.muted = false; audio.play(); }, { once: true });
 
-// SHA-256 password check
+// Message box overlay
+const downArrow = document.getElementById('downArrow');
+const overlay = document.getElementById('overlay');
+const closeOverlay = document.getElementById('closeOverlay');
+
+downArrow.addEventListener('click', () => {
+  overlay.style.display = 'flex';
+  document.body.style.filter = 'blur(5px)';
+});
+
+closeOverlay.addEventListener('click', () => {
+  overlay.style.display = 'none';
+  document.body.style.filter = 'none';
+});
+
+// Vault password check with simple SHA-256 + salt
 document.getElementById("passcode").addEventListener("keypress", function(e){
   if(e.key==="Enter"){ e.preventDefault(); checkPassword(); }
 });
@@ -170,14 +265,13 @@ async function checkPassword() {
   const statusMsg = document.getElementById("status-msg");
   const redirectURL = "https://github.com";
 
-  // SHA-256 hash of 'katuachodipradhan'
-  const correctHash = "f08ed24b904c4800b8da14d19fd32640d2138f9f99b328d0b217e34b8e521a69";
-
+  const salt = "MySecretSalt2026!";
   const encoder = new TextEncoder();
-  const data = encoder.encode(value);
+  const data = encoder.encode(salt + value);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
+  const hashHex = Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');
+
+  const correctHash = "f08ed24b904c4800b8da14d19fd32640d2138f9f99b328d0b217e34b8e521a69";
 
   if(hashHex === correctHash){
     container.classList.remove("error");
@@ -199,6 +293,5 @@ async function checkPassword() {
   }
 }
 </script>
-
 </body>
 </html>
