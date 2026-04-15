@@ -28,6 +28,14 @@ body {
   transition: filter 0.3s;
 }
 
+/* Wrap main content */
+#mainContent {
+  display: flex;
+  flex-direction: column;
+  min-height:100vh;
+  width:100%;
+}
+
 /* Headers */
 .header-text, .second-header {
   text-align:center;
@@ -38,6 +46,39 @@ body {
 }
 .header-text { font-size:1.4em; }
 .second-header { font-size:1.2em; margin-top:0.5vh; }
+
+/* Message Box */
+.message-box {
+  width:90%;
+  max-width:400px;
+  margin:20px auto;
+  padding:15px 20px;
+  border:2px solid #0df;
+  border-radius:8px;
+  text-align:center;
+  background: rgba(0,0,0,0.3);
+  color: #0df;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.down-arrow {
+  font-size:1.5em;
+  transition: transform 0.3s;
+}
+.message-box:hover .down-arrow { transform: translateY(3px); }
+
+/* Bottom content wrapper for vault + footer */
+#bottomContent {
+  margin-top:auto; /* sticks at bottom */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:100%;
+}
 
 /* Vault Container */
 .vault-container {
@@ -50,7 +91,7 @@ body {
   border-radius:8px;
   text-align:center;
   box-shadow:0 0 20px rgba(0,221,255,0.6),0 0 60px rgba(0,221,255,0.3) inset;
-  margin-top:20px;
+  margin-bottom:15px;
 }
 
 /* Vault Texts */
@@ -100,7 +141,7 @@ button:hover { background:var(--primary-color); color:#000; }
   backdrop-filter: blur(8px);
   padding:5px 10px;
   border-radius:6px;
-  margin-top:10px;
+  margin-bottom:20px;
 }
 .instagram-link {
   display:inline-flex;
@@ -111,31 +152,6 @@ button:hover { background:var(--primary-color); color:#000; }
 }
 .instagram-link img { width:24px; height:24px; cursor:pointer; }
 .instagram-link span { font-weight:bold; cursor:pointer; }
-
-/* Message Box */
-.message-box {
-  width:90%;
-  max-width:400px;
-  margin:20px auto;
-  padding:15px 20px;
-  border:2px solid #0df;
-  border-radius:8px;
-  text-align:center;
-  background: rgba(0,0,0,0.3);
-  color: #0df;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.down-arrow {
-  font-size:1.5em;
-  transition: transform 0.3s;
-}
-
-.message-box:hover .down-arrow { transform: translateY(3px); }
 
 /* Overlay */
 .overlay {
@@ -190,7 +206,7 @@ button:hover { background:var(--primary-color); color:#000; }
   <source src="https://Alpha-for-a-Reason.github.io/udti-udti-khabar-aayi-hai-ki/audio/song.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Main content wrapper for blur -->
+<!-- Main content wrapper -->
 <div id="mainContent">
   <!-- Headers -->
   <div style="text-align:center;">
@@ -204,24 +220,27 @@ button:hover { background:var(--primary-color); color:#000; }
     <div class="down-arrow" id="downArrow">&#x25BC;</div>
   </div>
 
-  <!-- Vault Section -->
-  <div class="vault-container" id="vault">
-    <h1>// SYS_VAULT</h1>
-    <p id="status-msg">AWAITING DECRYPTION KEY</p>
-    <div class="input-group">
-      <input type="password" id="passcode" placeholder="••••••••" autocomplete="off" />
-      <br>
-      <button onclick="checkPassword()">DECRYPT</button>
-      <p style="margin-top:10px; font-size:0.85em; opacity:0.7;">scroll down for key</p>
+  <!-- Bottom Content -->
+  <div id="bottomContent">
+    <!-- Vault Section -->
+    <div class="vault-container" id="vault">
+      <h1>// SYS_VAULT</h1>
+      <p id="status-msg">AWAITING DECRYPTION KEY</p>
+      <div class="input-group">
+        <input type="password" id="passcode" placeholder="••••••••" autocomplete="off" />
+        <br>
+        <button onclick="checkPassword()">DECRYPT</button>
+        <p style="margin-top:10px; font-size:0.85em; opacity:0.7;">scroll down for key</p>
+      </div>
     </div>
-  </div>
 
-  <!-- Footer / Instagram -->
-  <div class="footer">
-    DM for DECRYPTION KEY
-    <div class="instagram-link">
-      <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" onclick="window.open('https://instagram.com/alpha_for_a_reason_','_blank')" />
-      <span>👈 CLICK HERE</span>
+    <!-- Footer / Instagram -->
+    <div class="footer">
+      DM for DECRYPTION KEY
+      <div class="instagram-link">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" onclick="window.open('https://instagram.com/alpha_for_a_reason_','_blank')" />
+        <span>👈 CLICK HERE</span>
+      </div>
     </div>
   </div>
 </div>
