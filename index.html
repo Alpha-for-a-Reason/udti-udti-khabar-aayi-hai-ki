@@ -294,7 +294,7 @@ async function checkPassword() {
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   const hashHex = Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');
 
-  const correctHash = "f08ed24b904c4800b8da14d19fd32640d2138f9f99b328d0b217e34b8e521a69";
+  const correctHash = "bbd4fe3135eab496c66a7617d92856136db3a3e733d4261cd26aeeda30bd2aee";
 
   if(hashHex === correctHash){
     container.classList.remove("error");
