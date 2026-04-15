@@ -117,13 +117,6 @@ button:hover { background:var(--primary-color); color:#000; }
   .vault-container { padding:25px 15px; width:95%; }
   input, button { width:90%; font-size:1em; }
 }
-@media(max-height:500px) {
-  .vault-container { padding:20px 10px; }
-  h1 { font-size:1.4em; }
-  p { font-size:0.8em; }
-  input { font-size:1em; }
-  button { font-size:0.9em; }
-}
 </style>
 </head>
 <body>
@@ -141,13 +134,13 @@ button:hover { background:var(--primary-color); color:#000; }
 
 <!-- Vault Section -->
 <div class="vault-container" id="vault">
-  <h1>// SYS_VAULT</h1>
-  <p id="status-msg">AWAITING DECRYPTION KEY</p>
+  <h1>ALPHA_ VAULT</h1>
+  <p id="status-msg">DECRYPTION KEY REQUIRED</p>
   <div class="input-group">
     <input type="password" id="passcode" placeholder="••••••••" autocomplete="off" />
     <br>
     <button onclick="checkPassword()">DECRYPT</button>
-    <p style="margin-top:10px; font-size:0.85em; opacity:0.7;">scroll down for key</p>
+    <p style="margin-top:10px; font-size:0.85em; opacity:0.7;">scroll down 👇 for key</p>
   </div>
 </div>
 
@@ -161,35 +154,30 @@ button:hover { background:var(--primary-color); color:#000; }
 </div>
 
 <script>
-// Background audio play on first click
+// Play background audio after first user interaction
 const audio = document.getElementById('bgAudio');
 document.addEventListener('click', () => { audio.muted = false; audio.play(); }, { once: true });
 
-// Attempt limit
-let attempts = 0;
-
-// SHA-256 password check with salt + multiple rounds
+// SHA-256 password check
 document.getElementById("passcode").addEventListener("keypress", function(e){
   if(e.key==="Enter"){ e.preventDefault(); checkPassword(); }
 });
 
 async function checkPassword() {
   const input = document.getElementById("passcode");
-  const value = input.value.trim(); // trim spaces
+  const value = input.value.trim();
   const container = document.getElementById("vault");
   const statusMsg = document.getElementById("status-msg");
   const redirectURL = "https://github.com";
 
-  const salt = "MySecretSalt2026!"; // Add salt
-  const rounds = 5000; // multiple rounds
-  const encoder = new TextEncoder();
-  let data = encoder.encode(salt + value);
-  for(let i=0;i<rounds;i++){
-    data = new Uint8Array(await crypto.subtle.digest('SHA-256', data));
-  }
-  const hashHex = Array.from(data).map(b=>b.toString(16).padStart(2,'0')).join('');
+  // SHA-256 hash of 'katuachodipradhan'
+  const correctHash = "f08ed24b904c4800b8da14d19fd32640d2138f9f99b328d0b217e34b8e521a69";
 
-  const correctHash = "f08ed24b904c4800b8da14d19fd32640d2138f9f99b328d0b217e34b8e521a69"; // SHA256 of 'katuachodipradhan'
+  const encoder = new TextEncoder();
+  const data = encoder.encode(value);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
 
   if(hashHex === correctHash){
     container.classList.remove("error");
@@ -199,22 +187,9 @@ async function checkPassword() {
     document.querySelector("button").disabled = true;
     setTimeout(()=>{ window.location.href = redirectURL; },1500);
   } else {
-    attempts++;
     container.classList.remove("success");
     container.classList.add("error");
     statusMsg.innerText = "ERR: UNAUTHORIZED ACCESS ATTEMPT";
-
-    // Lock after 5 failed attempts
-    if(attempts >= 5){
-      input.disabled = true;
-      document.querySelector("button").disabled = true;
-      setTimeout(()=>{
-        input.disabled = false;
-        document.querySelector("button").disabled = false;
-        attempts = 0;
-      },30000); // 30 sec lock
-    }
-
     setTimeout(()=>{
       container.classList.remove("error");
       statusMsg.innerText = "AWAITING DECRYPTION KEY";
