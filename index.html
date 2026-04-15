@@ -276,7 +276,7 @@ closeOverlay.addEventListener('click', () => {
   mainContent.style.filter = 'none';
 });
 
-// Vault password check with simple SHA-256 + salt
+// Vault password check with plain SHA-256
 document.getElementById("passcode").addEventListener("keypress", function(e){
   if(e.key==="Enter"){ e.preventDefault(); checkPassword(); }
 });
@@ -288,13 +288,12 @@ async function checkPassword() {
   const statusMsg = document.getElementById("status-msg");
   const redirectURL = "https://github.com";
 
-  const salt = "MySecretSalt2026!";
   const encoder = new TextEncoder();
-  const data = encoder.encode(salt + value);
+  const data = encoder.encode(value);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   const hashHex = Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');
 
-  const correctHash = "bbd4fe3135eab496c66a7617d92856136db3a3e733d4261cd26aeeda30bd2aee";
+  const correctHash = "1188de4fa8d810f60b4de3c863d92de8f3c9832f3b8cf123db95d894452312e7"; // SHA-256 of "katuachodipradhan"
 
   if(hashHex === correctHash){
     container.classList.remove("error");
